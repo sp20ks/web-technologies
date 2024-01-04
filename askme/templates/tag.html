@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-12 mt-3 d-flex align-items-center">
+        <h1 class="mb-0 mr-2">Questions with tag: {{ tag }}</h1>
+    </div>
+
+
+    <div class="col-lg-10  ml-auto">
+        {% for question in questions %}
+
+        {% include 'components/question-item.html' %}
+
+        {% endfor %}
+
+        {% include 'components/pagination.html' %}
+    </div>
+
+
+
+    {% endblock content %}

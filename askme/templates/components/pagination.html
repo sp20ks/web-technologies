@@ -1,0 +1,14 @@
+<nav aria-label="Answers navigation example" class="d-flex justify-content-start">
+    <ul class="pagination">
+        {% if page.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}">Previous</a>
+        </li>
+        {% endif %}
+        {% for elem in rang %}
+        <li class="page-item"><a class="page-link" href="?page={{ elem }}">{{elem}}</a></li>
+        {% endfor %}
+        {% if page.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page.next_page_number }}">Next</a></li>
+        {% endif %}
+    </ul>
+</nav>

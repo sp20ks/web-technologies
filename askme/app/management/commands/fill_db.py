@@ -21,10 +21,10 @@ class Command(BaseCommand):
         tags_count = ratio
         likes_count = ratio * 200
 
-        # self.create_users_and_profiles(users_count)
-        # self.create_tags(questions_count)
-        # self.create_questions(questions_count)
-        # self.create_answers(answers_count)
+        self.create_users_and_profiles(users_count)
+        self.create_tags(questions_count)
+        self.create_questions(questions_count)
+        self.create_answers(answers_count)
         self.create_likes(likes_count)
 
     def create_users_and_profiles(self, count):

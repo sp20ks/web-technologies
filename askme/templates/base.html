@@ -1,116 +1,35 @@
-<!doctype html>
-{% load static %}
+{% extends 'main.html' %}
 
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <title>web-technologies</title>
-</head>
+{% block content %}
 
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <a class="navbar-brand" href="{% url 'index' %}">AskPupkin</a>
-            <form class="form-inline my-2 my-lg-0 mr-auto">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-secondary my-2 my-sm-0 ml-2" type="submit">Ask!</button>
-            </form>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                {% if need_auth %}
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="{% url 'login' %}" class="nav-link">Log In</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{% url 'signup' %}" class="nav-link">Register</a>
-                        </li>
-                    </ul>
-                {% else %}
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <img src="{% static 'img/cringy.png' %}" alt="Account Photo" class="img-fluid" height="40px" width="40px">
-                        </li>
-                        <li class="nav-item">
-                            <div class="d-flex flex-column ml-2">
-                                <span class="font-weight-bold mb-1">Mr. Cat</span>
-                                <div class="d-flex flex-row">
-                                    <a href="{% url 'profile' %}" class="mr-2 badge badge-secondary">Settings</a>
-                                    <a href="{% url 'login' %}" class="badge badge-secondary">Log out</a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                {% endif %}
-            </div>
-        </nav>
-    </header>
-
-    <div class="container mt-5">
-        <div class="row">
-            {% block content %}{% endblock %}
-            <div class="col-lg-2">
-                <div class="tags">
-                    <h5>Popular Tags</h5>
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <a href="{% url 'tag' tag='topic1' %}" class="badge badge-secondary">Topic1</a>
-                        </div>
-                        <div class="col-sm-4">
-                            <a href="{% url 'tag' tag='topic2' %}" class="badge badge-secondary">Topic2</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <a href="{% url 'tag' tag='topic3' %}" class="badge badge-secondary">Topic3</a>
-                        </div>
-                        <div class="col-sm">
-                            <a href="{% url 'tag' tag='topic4' %}" class="badge badge-secondary">Topic4</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <a href="{% url 'tag' tag='topic6' %}" class="badge badge-secondary">Topic6</a>
-                        </div>
-                        <div class="col-sm-5">
-                            <a href="{% url 'tag' tag='topic7' %}" class="badge badge-secondary">Topic7</a>
-                        </div>
-                        <div class="col-sm-2">
-                            <a href="{% url 'tag' tag='topic8' %}" class="badge badge-secondary">Topic8</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="authors">
-                    <h5>Popular Authors</h5>
-                    <div class="row">
-                        <div class="col-sm">
-                            <a href="#" class="mb-3 d-block">Cringy cat</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <a href="{% url 'create' %}"><button class="btn btn-primary ">Create question</button></a>
+        </div>
+        <div class="col">
+            <a href="{% url 'hot' %}"><button class="btn btn-danger">Hot</button></a>
         </div>
     </div>
+</div>
 
-    <footer class="bg-light bd-footer text-center border border-left-0 border-right-0 rounded-top bg-secondary">
-        <div class="text-center p-3">
-            <span>Веб-технологии, сем 1</span>
-            <a class="text-dark" href='https://github.com/sp20ks'>Sp20ks</a>
-        </div>
-    </footer>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-JBD00IHyCUfyZLd4TCZlju/XpG7zzI2Zf5GgVqc5xKl8faXa6Ct8EvoT3I+ZLX6B"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-JiQGh6iLZ7AX+STV6flXRb8pZr8M7pZp6lAOOkzRs5KgVqTKt8+0niY7e8s7x2Ag"
-        crossorigin="anonymous"></script>
-</body>
+<div class="row">
+    <div class="col-12 mt-3 d-flex align-items-center">
+        <h1 class="mb-0 mr-2">Questions</h1>
+    </div>
 
-</html>
+
+    <div class="col-lg-10  ml-auto">
+        {% for question in questions %}
+
+        {% include 'components/question-item.html'%}
+
+        {% endfor %}
+
+        {% include 'components/pagination.html' %}
+    </div>
+
+
+
+    {% endblock content %}

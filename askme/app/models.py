@@ -8,20 +8,32 @@ class ProfileManager(models.Manager):
         answers_rating = user.answer_set.aggregate(rating=models.Sum('rating'))['rating'] or 0
         return questions_rating + answers_rating
 
+    def get_popular_profiles(self, count=5):
+        queryset = self.get_queryset()
+        return queryset.order_by('-rating')[:count]
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(default='cringy.png', upload_to='avatars/', blank=True, null=True)
+    avatar = models.ImageField(default='static/img/cringy.png', upload_to='avatars/', blank=True, null=True)
     rating = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    bio = models.TextField(blank=True)
     objects = ProfileManager()
 
     def __str__(self):
         return self.user.username
 
 
+
+class TagManager(models.Manager):
+    def get_popular_tags(self, count=5):
+        return self.annotate(total_rating=models.Sum('question__rating')).order_by('-total_rating')[:count]
+
+
 class Tag(models.Model):
     name = models.CharField(max_length=255)
+    objects = TagManager()
 
     def __str__(self):
         return self.name
@@ -55,6 +67,14 @@ class Question(models.Model):
     objects = QuestionManager()
 
 
+class AnswerManager(models.Manager):
+    def change_right_answer(self, user, question, answer):
+        if user == question.author:
+            value = not answer.is_correct
+            Answer.objects.filter(pk=answer.id).update(is_correct=value)
+        pass
+
+
 class Answer(models.Model):
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -62,6 +82,7 @@ class Answer(models.Model):
     is_correct = models.BooleanField(default=False)
     rating = models.IntegerField(default=0)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    objects = AnswerManager()
 
 
 class Like(models.Model):

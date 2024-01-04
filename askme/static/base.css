@@ -1,0 +1,20 @@
+.name {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.user_info {
+    display: flex;
+}
+
+.img-fluid {
+    height: 40px;
+    width: 40px;
+}

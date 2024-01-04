@@ -1,37 +1,38 @@
-{% extends 'base.html' %}
+{% extends 'main.html' %}
+
+<!-- {% load static %} -->
+{% load django_bootstrap5 %}
 
 {% block content %}
+
+<div class="row">
     <div class="col-12 mt-3 d-flex align-items-center">
         <h1 class="mb-0 mr-2">Log in</h1>
     </div>
-    <div class="col-12 mt-3 d-flex align-items-center">
-        <p style="color: red; font-weight: bold;"> Ай-яй! Пароль неверный :(</p>
-    </div>
-
     <div class="col-lg-10  ml-auto">
-        <form>
-            <div class="form-group row">
-                <label for="login" class="col-sm-3 col-form-label">Login</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="login" placeholder="Enter your username" required>
-                </div>
-            </div>
+        {% if messages %}
+        <div class="messages" style="color: red;">
+            <p>{{ messages }}</p>
+        </div>
+        {% endif %}
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form %}
 
-            <div class="form-group row">
-                <label for="login" class="col-sm-3 col-form-label">Password</label>
-                <div class="col-sm-5">
-                    <input type="password" class="form-control" id="password" placeholder="Password" required>
-                </div>
-            </div>
-
+            {% bootstrap_button button_type="submit" content="Log In" %}
             <div class="form-group row">
                 <div class="col-sm-9 offset-sm-3 d-flex align-items-center">
-                    <button type="submit" class="btn btn-secondary mr-3">Log In</button>
-                    <div class="d-flex align-items-center">
-                        <p class="mb-0">Don't have an account? <a href="{% url 'signup' %}" class="ml-2">Create new account</a></p>
+                    <div class="d-flex">
+                        <p class="mb-0">Don't have an account? <a href="{% url 'signup' %}" class="ml-2">Create
+                                new
+                                account</a>
+                        </p>
                     </div>
                 </div>
             </div>
         </form>
+
     </div>
-{% endblock %}
+
+
+    {% endblock content %}

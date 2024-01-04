@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AskPupkin</title>
+    {% load static %}
+</head>
+
+<body>
+
+    {% include "navbar.html" %}
+
+    <div class="container mt-5">
+
+        {% block content %}
+
+        {% endblock %}
+
+        <div>
+            <h3>Popular Tags</h3>
+            <hr>
+
+            <div class="tags">
+                {% for tag in all_tags %}
+                <div>
+                    <a href="{% url 'tag' tag.name %}">{{ tag.name }}</a>
+                </div>
+                {% endfor %}
+            </div>
+
+
+
+            <div class="authors">
+                <h5>Popular Authors</h5>
+                <div class="row">
+                    <div class="col-sm">
+                        {% for user in users %}
+                        <a href="#" class="mb-3 d-block">{{ user.username }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+<script src="{% static '/js/main.js' %}"></script>
+
+</html>
